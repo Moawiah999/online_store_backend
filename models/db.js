@@ -32,38 +32,49 @@ const createTable = () => {
         image_user TEXT
       );
 
-      create table favorites(
-      id SERIAL PRIMARY KEY ,
-      product_name VARCHAR(30) NOT NULL,
-      product_image VARCHAR(400),
-      price_product INT NOT NULL,
-      user_id INT NOT NULL,
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-      );
-
-      create table carts(
-        id SERIAL PRIMARY KEY ,
-        product_name VARCHAR(30) NOT NULL,
-        product_image VARCHAR(400) NOT NULL,
-        number_products INT,
-        price_product INT NOT NULL,
-        user_id INT NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-
-      );
       create table product_category(
         id SERIAL PRIMARY KEY,
         name_category VARCHAR(30)
       );
+      create table product_colors(
+        id SERIAL PRIMARY KEY NOT NULL,
+        color VARCHAR(20) NOT NULL
+      );
       create table products(
         id SERIAL PRIMARY KEY,
         product_name VARCHAR(30) NOT NULL,
-        product_image VARCHAR(400) NOT NULL,
+        product_image BYTEA NOT NULL,
         price_product INT NOT NULL,
         category_id INT,
-        FOREIGN KEY (category_id) REFERENCES product_category(id) ON DELETE CASCADE
+        product_color_id INT,
+        FOREIGN KEY (category_id) REFERENCES product_category(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_color_id) REFERENCES product_colors(id) ON DELETE CASCADE
       );
       
+      create table carts(
+        id SERIAL PRIMARY KEY,
+        number_products INT,
+        user_id INT NOT NULL,
+        product_id INT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+      );
+      create table favorites(
+        id SERIAL PRIMARY KEY,
+        user_id INT NOT NULL,
+        product_id INT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+      );
+      create table orders(
+        id SERIAL PRIMARY KEY,
+        number_products INT,
+        user_id INT NOT NULL,
+        product_id INT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES users(id) ON DELETE CASCADE
+      );
+
     `
     )
     .then(() => {
