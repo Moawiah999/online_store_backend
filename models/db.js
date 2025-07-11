@@ -36,21 +36,24 @@ const createTable = () => {
         id SERIAL PRIMARY KEY,
         name_category VARCHAR(30)
       );
-      create table product_colors(
+      create table colors(
         id SERIAL PRIMARY KEY NOT NULL,
         color VARCHAR(20) NOT NULL
-      );
+      ); 
       create table products(
         id SERIAL PRIMARY KEY,
         product_name VARCHAR(30) NOT NULL,
         product_image BYTEA NOT NULL,
         price_product INT NOT NULL,
-        category_id INT,
-        product_color_id INT,
-        FOREIGN KEY (category_id) REFERENCES product_category(id) ON DELETE CASCADE,
-        FOREIGN KEY (product_color_id) REFERENCES product_colors(id) ON DELETE CASCADE
+        category_id INT
       );
-      
+      CREATE TABLE product_colors (
+        id SERIAL PRIMARY KEY,
+        product_id INT NOT NULL,
+        color_id INT NOT NULL,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+        FOREIGN KEY (color_id) REFERENCES colors(id) ON DELETE CASCADE
+      );
       create table carts(
         id SERIAL PRIMARY KEY,
         number_products INT,
