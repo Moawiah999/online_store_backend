@@ -28,8 +28,8 @@ const createTable = () => {
         id SERIAL PRIMARY KEY , 
         username VARCHAR(20),
         email VARCHAR(25) UNIQUE,
-        password VARCHAR(30),
-        image_user TEXT
+        password VARCHAR,
+        image_user BYTEA
       );
 
       create table product_category(
@@ -46,13 +46,6 @@ const createTable = () => {
         product_image BYTEA NOT NULL,
         price_product INT NOT NULL,
         category_id INT
-      );
-      CREATE TABLE product_colors (
-        id SERIAL PRIMARY KEY,
-        product_id INT NOT NULL,
-        color_id INT NOT NULL,
-        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
-        FOREIGN KEY (color_id) REFERENCES colors(id) ON DELETE CASCADE
       );
       create table carts(
         id SERIAL PRIMARY KEY,
