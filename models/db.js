@@ -45,7 +45,9 @@ const createTable = () => {
         product_name VARCHAR(30) NOT NULL,
         product_image BYTEA NOT NULL,
         price_product INT NOT NULL,
-        category_id INT
+        information_product VARCHAR(200) NOT NULL,
+        category_id INT,
+        FOREIGN KEY (category_id) REFERENCES product_category(id)
       );
       create table carts(
         id SERIAL PRIMARY KEY,
@@ -68,9 +70,8 @@ const createTable = () => {
         user_id INT NOT NULL,
         product_id INT NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-        FOREIGN KEY (product_id) REFERENCES users(id) ON DELETE CASCADE
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
       );
-
     `
     )
     .then(() => {
