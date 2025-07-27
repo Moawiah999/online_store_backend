@@ -51,24 +51,5 @@ const getAllProduct = (req, res) => {
       res.status(500).json({ message: "Failed to fetch products" });
     });
 };
-const getProductById = (req, res) => {
-  const id = req.params.id;
-  const query = "SELECT * FROM products WHERE id =$1";
-  client
-    .query(query, [id])
-    .then((result) => {
-      const products = result.rows.map(function (elements) {
-        return {
-          ...elements,
-          product_image: elements.product_image.toString("base64"),
-        };
-      });
-      res.status(200).json({
-        data: products,
-      });
-    })
-    .catch(() => {
-      res.status(500).json({ message: "Failed to fetch product" });
-    });
-};
-module.exports = { addProduct, getAllProduct, getProductById };
+
+module.exports = { addProduct, getAllProduct };
