@@ -9,9 +9,11 @@ app.use(express.json());
 const PORT = process.env.PORT;
 
 const user = require("./routes/user");
+const product = require("./routes/product");
+const category = require("./routes/category_product");
 app.use("/users", user);
-
+app.use("/products", product);
+app.use("/categories", category);
 app.listen(PORT, () => {
-  
   console.log(`Server listening at http://localhost:${PORT}`);
 });
