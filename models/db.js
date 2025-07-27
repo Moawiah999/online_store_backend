@@ -36,10 +36,7 @@ const createTable = () => {
         id SERIAL PRIMARY KEY,
         name_category VARCHAR(30)
       );
-      create table colors(
-        id SERIAL PRIMARY KEY NOT NULL,
-        color VARCHAR(20) NOT NULL
-      ); 
+
       create table products(
         id SERIAL PRIMARY KEY,
         product_name VARCHAR(30) NOT NULL,
