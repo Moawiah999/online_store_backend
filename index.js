@@ -11,10 +11,11 @@ const PORT = process.env.PORT;
 const user = require("./routes/user");
 const product = require("./routes/product");
 const category = require("./routes/category_product");
+const favorites = require("./routes/favorite");
 app.use("/users", user);
 app.use("/products", product);
 app.use("/categories", category);
-
+app.use("/favorites", favorites);
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
 });
