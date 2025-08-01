@@ -36,7 +36,8 @@ const registration = async (req, res) => {
 
 const login = (req, res) => {
   const { email, password } = req.body;
-  const query = "SELECT email,password,username FROM users WHERE email = $1";
+
+  const query = "SELECT id,email,password,username FROM users WHERE email = $1";
   const data = [email.toLowerCase()];
 
   client
