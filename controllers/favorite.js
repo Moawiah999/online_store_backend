@@ -28,23 +28,28 @@ const addFavoriteProduct = (req, res) => {
 };
 
 const getFavoriteProduct = (req, res) => {
-  const { user_id, product_id } = req.params;
+  const { user_id } = req.params;
 
   const query = `
-    SELECT products.product_name, products.product_image, products.price_product
+    SELECT products.id, products.product_name, products.product_image, products.price_product, products.information_product
     FROM favorites
     INNER JOIN products ON favorites.product_id = products.id
-    WHERE favorites.user_id = $1 AND favorites.product_id = $2
+    WHERE favorites.user_id = $1 
   `;
 
-  const data = [user_id, product_id];
+  const data = [user_id];
 
   client
     .query(query, data)
     .then((result) => {
+      const products = result.rows.map(function (elements) {
+        return {
+          ...elements,
+          product_image: elements.product_image.toString("base64"),
+        };
+      });
       res.status(200).json({
-        success: true,
-        product: result.rows[0],
+        data: products,
       });
     })
     .catch(() => {
